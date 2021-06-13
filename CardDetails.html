@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="CSS/creditdetails.css">
+
+    <title>Credit Card</title>
+</head>
+
+<body class="text-center" style="background-color: #F5F6F9;">
+    <div class="row row-centered">
+        <div id="card_title" class="heading col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+            Card Details
+        </div>
+    </div> 
+    <div id="main_card" class="mx-auto card-background-container col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+
+        <div class="row-centered">
+            <div class="mt-4 column col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <img id="card_img" style=" box-shadow: 0px 0px 25px 10px #A1A8BA; border-radius: 10px;" src="Credit Card.png" alt="" width="400px">
+            </div>
+        </div>
+
+        <div class="input-field-container mt-4 ">
+            <input type="text" id="card_number_textbox"
+                maxlength="16"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                class="input-amount" placeholder="Card Number" autofocus>
+            <div class="error-message" id="card_number_error_message">
+                Card number is required !
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: row; ">
+
+            <div class="input-field-container mt-2" style="width: 240px; margin-right: 0px;">
+                <input type="text" id="expiry_date_textbox" class="input-amount" placeholder="Expiry Date">
+            
+                <div class="error-message" id="expiry_date_error_message">
+                    Expiry date is required !
+                </div>
+            </div>
+
+            <div class="input-field-container mt-2" style="width: 150px; margin-left: 10px;">
+                <input type="text" id="cvv_textbox" class="input-amount" placeholder="CVV"
+                maxlength="3"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+            
+                <div class="error-message" id="cvv_error_message">
+                    Cvv is required !
+                </div>
+            </div>
+
+        </div>
+
+        <div class="input-field-container mt-2 ">
+            <input type="text" id="card_holder_name_textbox" class="input-amount" placeholder="Card Holder Name"
+            onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'>
+        
+            <div class="error-message" id="card_holder_name_error_message">
+                Card holder name is required !
+            </div>
+        </div>
+
+        <button id="pay_button" class="mt-3 mb-3" onclick="pay()">Pay</button>
+
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    -->
+</body>
+
+<script>
+    let card = document.getElementById("main_card");
+    let card_title = document.getElementById("card_title");
+    let card_img = document.getElementById("card_img");
+    let button = document.getElementById("pay_button");
+
+    if (localStorage.getItem("screen") == "Debit") {
+        card.style.backgroundColor = "#F5DECB";
+        card_title.innerHTML = "Debit Card";
+        card_img.setAttribute("src", "Debit card.png");
+        button.style.backgroundColor = "#F48A28";
+    } else { 
+
+    }
+
+    
+    function pay() {
+        let cardNumber = document.getElementById("card_number_textbox").value;
+        let expiryDate = document.getElementById("expiry_date_textbox").value;
+        let cvv = document.getElementById("cvv_textbox").value;
+        let cardHolderName = document.getElementById("card_holder_name_textbox").value;
+
+        if (validateFields()) {
+            window.location.href = "verificationScreen.html";
+        }
+    }
+
+    function validateFields () {
+        let valid = true;
+        let cardNumber = document.getElementById("card_number_textbox").value;
+        let expiryDate = document.getElementById("expiry_date_textbox").value;
+        let cvv = document.getElementById("cvv_textbox").value;
+        let cardHolderName = document.getElementById("card_holder_name_textbox").value;
+
+        let cardNumberError = document.getElementById("card_number_error_message");
+        let expiryError = document.getElementById("expiry_date_error_message");
+        let cvvError = document.getElementById("cvv_error_message");
+        let cardHolderNameError = document.getElementById("card_holder_name_error_message");
+
+        if (cardNumber == "") {
+            cardNumberError.style.display = "block";
+            valid = false;
+        } else cardNumberError.style.display = "none";
+
+        if (expiryDate == "") {
+            expiryError.style.display = "block";
+            valid = false;
+        }
+        else expiryError.style.display = "none";
+
+        if (cvv == "") {
+            cvvError.style.display = "block";
+            valid = false;
+        }
+        else cvvError.style.display = "none";
+
+        if (cardHolderName == "") {
+            cardHolderNameError.style.display = "block";
+            valid = false;
+        }
+        else cardHolderNameError.style.display = "none";
+
+        return valid;
+    }
+</script>
+
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/demostyle.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+
+    <title>Hello, world!</title>
+
+  </head>
+  <body class="text-center" style="padding-top: 50px; background-color: #F5F6F9;">
+    
+    <div id="main_card" class="mx-auto card-container-background col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+        <div class="card-div-header">  
+            <div id="card_title" class="heading-title">
+                Credit Card 
+            </div>
+            <div style="width: 12%;">
+                <img src="/debit-card.png" width="100%">
+            </div>
+        </div>
+
+        <div class="heading">
+            Amount to pay
+        </div>
+
+        <div class="middle-container">
+            <div class="currency">
+                ₹
+            </div>
+
+            <input type="text" 
+                id="amount_textbox"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                class="input-amount" placeholder="0" autofocus>
+        </div>
+
+
+        <div class="center-container">
+            <button id="submitBtn" type="button" class="btn btn-primary btn-circle btn-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+            </button>
+        </div>
+
+
+    </div>
+
+    <div id="myAlert" class="mx-auto alert-box alert alert-danger alert-dismissible collapse">
+        <strong>Error!</strong> Please enter amount.
+        <button id="alertClose" type="button" class="close" aria-label="Close">
+            Dismiss
+        </button>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
+
+
+<script>
+    let card = document.getElementById("main_card");
+        let card_title = document.getElementById("card_title");
+        let button = document.getElementById("submitBtn");
+
+    if (localStorage.getItem("screen") == "Credit") {
+        
+
+        card.style.backgroundColor = "#CFD8F0";
+        card_title.style.color = "#466DD2";
+        card_title.innerHTML = "Credit Card"
+    } else {
+
+        card.style.backgroundColor = "#F5DECB";
+        card_title.style.color = "#F48A28";
+        card_title.innerHTML = "Debit Card"
+        button.style.backgroundColor = "#F48A28"
+        button.style.border = "none";
+    }    
+
+    
+    $(document).ready(function() {
+        $('#submitBtn').click(function() {
+            let amount = document.getElementById('amount_textbox').value;
+            if (amount == "") 
+                $('#myAlert').show('fade');
+            else {
+                window.location.href = 'CardDetails.html';
+            }
+        });
+        $('#alertClose').click(function() {
+            $('#myAlert').hide('fade');
+        });
+    });
+    
+</script>
